@@ -15,18 +15,23 @@ import time
         
         
 '''
-click the plain text link and scrape it'''
+go through each of the volumes in a collection, click the plain text link and scrape it'''
 
 # defines a function to get ocr based on one argument, a collection url
 def get_volume_ocr(collection_url):
 
-    # first, we need to get all the volume urls, which we do by...
+
+    '''
+    get the volume urls'''
+    
     # opening and reading the collection url
     collection = urllib2.urlopen(collection_url).read()
     # creating soup for it, which basically means pulling data out of it
     collection_soup = BeautifulSoup(collection)
+    
     # finding all of the full text links by searching for anchors with a class of fulltext icomoon-document-2 (i have no idea what icomoon-document-2 means)
     full_text_urls = collection_soup.find_all('a', {'class': 'fulltext icomoon-document-2'})
+    
     # creating an empty list so that we can populate it with volume urls
     volume_urls = []
     # going through all of the full text urls
@@ -36,38 +41,53 @@ def get_volume_ocr(collection_url):
         # and then appending that url to the volume url list we created earlier
         volume_urls.append(volume_url)
     
-    # second, we need to get the volume it and store that as a variable, because we'll use it later, which we do by...
+    
+    '''
+    get the volume id and store that as a variable, because we'll use it later'''
+    
     # going through all of the volume urls
     for volume_url in volume_urls:
         # and picking out volume identifier (always the last 18 characters)
         item_id_string = volume_url[-18:]
 
-        # third, we need to go to each volume url and figure out how many pages it has, which we do by...
+        
+        '''
+        go to each volume url and figure out how many pages it has'''
+        
         # opening and reading the volume url
         volume = urllib2.urlopen(volume_url).read()
         # creating soup for it, which basically means pulling data out of it
         volume_soup = BeautifulSoup(volume)
+        
         # finding the go to last link by searching for anchors with an id of action-go-last
         action_go_last = volume_soup.find('a', {'id': 'action-go-last'})    
+       
         # getting the url, which contains the last page number
         action_go_last_url = action_go_last['href']
         # using a regex to look for what's between 'seq=' and ';'
         number_of_sequence_or_fileid_matches = re.findall('(?<=seq=)(.*)(?=;)', action_go_last_url)
+        
         # going through each of the matches (yes, even though there is only one)
         for number_of_sequence_or_fileid_match in number_of_sequence_or_fileid_matches:
             # and storing the page number as a variable, since we'll use it later
             number_of_sequence_or_fileid = int(number_of_sequence_or_fileid_match)
         
-            # fourth, output the ocr to text file for each volume, which we do by...
+        
+            '''
+            output the ocr to text file for each volume'''
+            
             # defining what folder we want to out put to
             output_path = 'C:\Users\eckardm\GitHub\michigan-technic\ocr'
+            
             # we'll need to loop through each page, so initializing a counter at 1 (page 1)
             sum = 1
             # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
             while sum <= number_of_sequence_or_fileid:
+                
                 # creating the url for the page
                 page_url = 'https://babel.hathitrust.org/cgi/pt?id=' + item_id_string + ';view=1up;seq=' + str(sum)
-                # going to it and reading it
+             
+                # going to it and reading it, accounting for 503 errors
                 while True:
                     try:
                         page = urllib2.urlopen(page_url).read()
@@ -100,10 +120,14 @@ def get_volume_ocr(collection_url):
                         # incrementing the sum
                         sum += 1
                         # and giving the hathitrust servers a chance to catch their breath
-                        time.sleep(1)       
+                        time.sleep(1)      
+
+                    # if it doesn't work, wait a bit a try again    
                     except:
                         time.sleep(10)
                         continue
+                        
+                    # exiting the loop
                     break
             
 
@@ -122,4 +146,4 @@ get_volume_ocr(michigan_technic)
 
 
 '''
-once, this runs, we'll also need to set up a dictionaries for each volumes (maybe a dictionaries?) that includes metadata and the tokenized ocr'''
+once this runs, we'll also need to set up a dictionaries for each volume that includes metadata (title, date, id)and the tokenized ocr'''
