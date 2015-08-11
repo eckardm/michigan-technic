@@ -1,2 +1,2 @@
 # michigan-technic
-HathiTrust test mining
+HT test mining is easy! All you need is a collection! 
