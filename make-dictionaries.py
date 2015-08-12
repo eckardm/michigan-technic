@@ -7,6 +7,9 @@ import urllib2
 # beautifulsoup pulls data out of html and xml files, you'll need to install it
 from bs4 import BeautifulSoup
 
+# re provides regular expression matching operations
+import re
+
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
 from nltk import word_tokenize
@@ -34,50 +37,53 @@ def make_dictionaries(collection_url):
     row_result_alts = collection_soup.find_all('div', {'class': 'row result alt'})
     
     '''
-    get dictionary entries for row result'''
+    make a way to get dictionary entries for row results and row result alts'''
     
-    # go through row results
-    for row_result in row_results:
-        # find the title
-        
-        # find the date
-        
-        # find the id
-        
-        # tokenize the ocr
-        
-        
-        '''
-        make dictionary'''
-        
-        # make a dictionary
-        
-        # append the dictionary to our list
+    # function to get dictionary entries
+    def get_row_results(div_class_attribute_value)
     
+        # finding all of the results
+        row_results = collection_soup.find_all('div', {'class': div_class_attribute_value})
+        
+        # go through row results
+        for row_result in row_results:
+            # find the title
+            row_result_title = row_result.find('h4', {'class': 'Title'})
+            # get just what we need
+            row_result_title = re.sub('Item\s\d+\:\s', '', row_result_title.text)
+            # find the date
+            row_result_date = row_result.find('span', {'class': 'Date'})
+            # get just what we need
+            row_result_date = int(row_result_date.text.replace('Published ', ''))
+            # find the id
+            row_result_id = row_result.find('input', {'class': 'id'})
+            # get just what we need
+            row_result_id = row_result_id['value']
+            
+            
+            '''
+            tokenize the ocr for row results'''
+            
+            
+            '''
+            make dictionary for row result'''
+            
+            # make a dictionary
+            
+            # append the dictionary to our list
+            
+            
+            '''
+            write dictionaries to file for reference later'''
+        
+        
     '''
-    get dictionary entries for row result alt'''
+    do this for row results'''
     
-    # go through row result alts
-    for row_result_alt in row_result_alts:
-        # find the title
-        
-        # find the date
-        
-        # find the id
-        
-        # tokenize the ocr
-        
-        
-        '''
-        make dictionary'''
-        
-        # make a dictionary
-        
-        # append the dictionary to our list
-
-
-    '''
-    write dictionaries to file for reference later'''
+    # row result
+    get_row_results('row result')
+    # row result alt
+    get_row_results('row result alt')
 
 
 '''
