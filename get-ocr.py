@@ -1,6 +1,9 @@
 '''
 first things first, import the python modules we'll need, listed in the order you'll need them'''
 
+# os provides a portable way of using operating system dependent functionality
+import os
+
 # urllib2 opens URLs, it comes with python
 import urllib2
 
@@ -19,6 +22,13 @@ go through each of the volumes in a collection, click the plain text link and sc
 
 # defines a function to get ocr based on one argument, a collection url
 def get_volume_ocr(collection_url):
+
+    
+    '''
+    make directory for ocr'''
+    
+    # constructing the output path
+    os.mkdir('ocr')
 
 
     '''
@@ -76,9 +86,6 @@ def get_volume_ocr(collection_url):
             '''
             output the ocr to text file for each volume'''
             
-            # defining what folder we want to out put to
-            output_path = 'C:\Users\eckardm\GitHub\michigan-technic\ocr'
-            
             # we'll need to loop through each page, so initializing a counter at 1 (page 1)
             sum = 1
             # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
@@ -111,8 +118,8 @@ def get_volume_ocr(collection_url):
                             page_item_page_text = re.sub(r'\<(.*)?\>', '', str(page_item_page_text))
                             # printing it to the terminal(just for fun)
                             print page_item_page_text
-                            # constructing the output path and file unique to each volume
-                            output_text = output_path + '\\' + item_id_string + '.txt'
+                            # and file unique to each volume
+                            output_text = 'ocr\\' + item_id_string + '.txt'
                             # opening the file at that path so that we can append to it
                             with open(output_text, 'a') as text_file:
                                 # and writing the ocr!
