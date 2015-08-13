@@ -86,8 +86,8 @@ def get_volume_ocr(collection_url):
             '''
             output the ocr to text file for each volume'''
             
-            # we'll need to loop through each page, so initializing a counter at 1 (page 1)
-            sum = 1
+            # we'll need to loop through each page, so initializing a counter at 0
+            sum = 0
             # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
             while sum <= number_of_sequence_or_fileid:
                 
