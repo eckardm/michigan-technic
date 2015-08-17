@@ -28,7 +28,7 @@ def get_volume_ocr(collection_url):
     make directory for ocr'''
     
     # constructing the output path
-    os.mkdir('ocr')
+    os.mkdir('ocr-bread')
 
 
     '''
@@ -43,13 +43,13 @@ def get_volume_ocr(collection_url):
     full_text_urls = collection_soup.find_all('a', {'class': 'fulltext icomoon-document-2'})
     
     # creating an empty list so that we can populate it with volume urls
-    volume_urls = []
+    volume_urls = set()
     # going through all of the full text urls
     for full_text_url in full_text_urls:
         # creating the volume url by appending the full text url to the hathitrust babel base url
         volume_url = 'https://babel.hathitrust.org' + full_text_url['href']
         # and then appending that url to the volume url list we created earlier
-        volume_urls.append(volume_url)
+        volume_urls.add(volume_url)
     
     
     '''
@@ -58,8 +58,10 @@ def get_volume_ocr(collection_url):
     # going through all of the volume urls
     for volume_url in volume_urls:
         # and picking out volume identifier (always the last 18 characters)
-        item_id_string = volume_url[-18:]
-
+        item_id_string = volume_url.split('=')[-1]
+        
+        
+        
         
         '''
         go to each volume url and figure out how many pages it has'''
@@ -75,68 +77,63 @@ def get_volume_ocr(collection_url):
         # getting the url, which contains the last page number
         action_go_last_url = action_go_last['href']
         # using a regex to look for what's between 'seq=' and ';'
-        number_of_sequence_or_fileid_matches = re.findall('(?<=seq=)(.*)(?=;)', action_go_last_url)
+        number_of_sequence_or_fileid = int(re.search('seq=(\d{1,4})', action_go_last_url).group(1))
         
-        # going through each of the matches (yes, even though there is only one)
-        for number_of_sequence_or_fileid_match in number_of_sequence_or_fileid_matches:
-            # and storing the page number as a variable, since we'll use it later
-            number_of_sequence_or_fileid = int(number_of_sequence_or_fileid_match)
-        
-        
-            '''
-            output the ocr to text file for each volume'''
-            
-            # we'll need to loop through each page, so initializing a counter at 0
-            sum = 0
-            # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
-            while sum <= number_of_sequence_or_fileid:
-                
-                # creating the url for the page
-                page_url = 'https://babel.hathitrust.org/cgi/pt?id=' + item_id_string + ';view=1up;seq=' + str(sum)
-             
-                # going to it and reading it, accounting for 503 errors
-                while True:
-                    try:
-                        page = urllib2.urlopen(page_url).read()
-                        # making soup from it
-                        page_soup = BeautifulSoup(page)
-                        # then finding the link to the plain text
-                        pt_plain_text = page_soup.find('a', {'data-tracking-action': 'PT Plain Text'})
-                        # getting the link
-                        pt_plain_text_url = pt_plain_text['href']
-                        # creating the url for the ocr
-                        ocr_url = 'https://babel.hathitrust.org' + pt_plain_text_url
-                        # going to it and reading it
-                        ocr = urllib2.urlopen(ocr_url).read()
-                        # making soup from it
-                        ocr_soup = BeautifulSoup(ocr)
-                        # finding the ocr
-                        page_item_page_text = ocr_soup.find('div', {'class': 'page-item page-text'})
-                        # and, if it has something there
-                        if page_item_page_text is not None:
-                            # getting rid of all the html tags
-                            page_item_page_text = re.sub(r'\<(.*)?\>', '', str(page_item_page_text))
-                            # printing it to the terminal(just for fun)
-                            print page_item_page_text
-                            # and file unique to each volume
-                            output_text = 'ocr\\' + item_id_string + '.txt'
-                            # opening the file at that path so that we can append to it
-                            with open(output_text, 'a') as text_file:
-                                # and writing the ocr!
-                                text_file.write(page_item_page_text)
-                        # incrementing the sum
-                        sum += 1
-                        # and giving the hathitrust servers a chance to catch their breath
-                        time.sleep(1)      
 
-                    # if it doesn't work, wait a bit a try again    
-                    except:
-                        time.sleep(10)
-                        continue
-                        
-                    # exiting the loop
-                    break
+        '''
+        output the ocr to text file for each volume'''
+        
+        # we'll need to loop through each page, so initializing a counter at 0
+        sum = 0
+        # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
+        while sum <= number_of_sequence_or_fileid:
             
+            # creating the url for the page
+            page_url = 'https://babel.hathitrust.org/cgi/pt?id=' + item_id_string + ';view=1up;seq=' + str(sum)
+         
+            # going to it and reading it, accounting for 503 errors
+            while True:
+                try:
+                    page = urllib2.urlopen(page_url).read()
+                    # making soup from it
+                    page_soup = BeautifulSoup(page)
+                    # then finding the link to the plain text
+                    pt_plain_text = page_soup.find('a', {'data-tracking-action': 'PT Plain Text'})
+                    # getting the link
+                    pt_plain_text_url = pt_plain_text['href']
+                    # creating the url for the ocr
+                    ocr_url = 'https://babel.hathitrust.org' + pt_plain_text_url
+                    # going to it and reading it
+                    ocr = urllib2.urlopen(ocr_url).read()
+                    # making soup from it
+                    ocr_soup = BeautifulSoup(ocr)
+                    # finding the ocr
+                    page_item_page_text = ocr_soup.find('div', {'class': 'page-item page-text'})
+                    # and, if it has something there
+                    if page_item_page_text is not None:
+                        # getting rid of all the html tags
+                        page_item_page_text = re.sub(r'\<(.*)?\>', '', str(page_item_page_text))
+                        # printing it to the terminal(just for fun)
+                        print page_item_page_text
+                        # and file unique to each volume
+                        output_text = 'ocr-bread\\' + item_id_string + '.txt'
+                        # opening the file at that path so that we can append to it
+                        with open(output_text, 'a') as text_file:
+                            # and writing the ocr!
+                            text_file.write(page_item_page_text)
+                    # incrementing the sum
+                    sum += 1
+                    # and giving the hathitrust servers a chance to catch their breath
+                    time.sleep(1)      
+
+                # if it doesn't work, wait a bit a try again    
+                except:
+                    time.sleep(10)
+                    continue
+                    
+                # exiting the loop
+                break
+        
 
 '''
 run it'''        
@@ -147,9 +144,10 @@ run it'''
         
 # to run this, change 'https://babel.hathitrust.org/cgi/mb?a=listis;c=397666231;sort=title_a;pn=1;sz=50' to the url for your collection (you can also change the variable name if you like)
 michigan_technic = 'https://babel.hathitrust.org/cgi/mb?a=listis;c=397666231;sort=title_a;pn=1;sz=50'
+bread = 'http://babel.hathitrust.org/cgi/mb?a=listis;c=858234468'
 
 # run it!
-get_volume_ocr(michigan_technic)
+get_volume_ocr(bread)
 
 
 '''
