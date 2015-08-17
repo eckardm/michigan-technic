@@ -128,10 +128,9 @@ run it'''
         
 # to run this, change 'https://babel.hathitrust.org/cgi/mb?a=listis;c=397666231;sort=title_a;pn=1;sz=50' to the url for your collection (you can also change the variable name if you like)
 michigan_technic = 'https://babel.hathitrust.org/cgi/mb?a=listis;c=397666231;sort=title_a;pn=1;sz=50'
-bread = 'http://babel.hathitrust.org/cgi/mb?a=listis;c=858234468'
 
 # run it!
-get_volume_ocr(bread)
+get_volume_ocr(michigan_technic)
 
 
 '''
