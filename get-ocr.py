@@ -61,8 +61,6 @@ def get_volume_ocr(collection_url):
         item_id_string = volume_url.split('=')[-1]
         
         
-        
-        
         '''
         go to each volume url and figure out how many pages it has'''
         
@@ -83,26 +81,13 @@ def get_volume_ocr(collection_url):
         '''
         output the ocr to text file for each volume'''
         
-        # we'll need to loop through each page, so initializing a counter at 0
-        sum = 0
-        # then we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
-        while sum <= number_of_sequence_or_fileid:
-            
-            # creating the url for the page
-            page_url = 'https://babel.hathitrust.org/cgi/pt?id=' + item_id_string + ';view=1up;seq=' + str(sum)
-         
+        # we'll go through each page (and eventually adding one to go to the next one), as long as the number of the pages we're on is less than or equal to the total number of pages
+        for page in range(1, number_of_sequence_or_fileid + 1):
             # going to it and reading it, accounting for 503 errors
             while True:
                 try:
-                    page = urllib2.urlopen(page_url).read()
-                    # making soup from it
-                    page_soup = BeautifulSoup(page)
-                    # then finding the link to the plain text
-                    pt_plain_text = page_soup.find('a', {'data-tracking-action': 'PT Plain Text'})
-                    # getting the link
-                    pt_plain_text_url = pt_plain_text['href']
-                    # creating the url for the ocr
-                    ocr_url = 'https://babel.hathitrust.org' + pt_plain_text_url
+                    # make ocr url
+                    ocr_url = 'https://babel.hathitrust.org/cgi/pt?id=' + item_id_string + ';view=plaintext;seq=' + str(page)
                     # going to it and reading it
                     ocr = urllib2.urlopen(ocr_url).read()
                     # making soup from it
@@ -112,18 +97,17 @@ def get_volume_ocr(collection_url):
                     # and, if it has something there
                     if page_item_page_text is not None:
                         # getting rid of all the html tags
-                        page_item_page_text = re.sub(r'\<(.*)?\>', '', str(page_item_page_text))
+                        page_item_page_text = re.sub(r'<(.*)?>', '', str(page_item_page_text))
                         # printing it to the terminal(just for fun)
                         print page_item_page_text
                         # and file unique to each volume
-                        output_text = 'ocr-bread\\' + item_id_string + '.txt'
+                        output_text = os.path.join('ocr-bread', "{0}.txt".format(item_id_string))
                         # opening the file at that path so that we can append to it
                         with open(output_text, 'a') as text_file:
                             # and writing the ocr!
                             text_file.write(page_item_page_text)
-                    # incrementing the sum
-                    sum += 1
-                    # and giving the hathitrust servers a chance to catch their breath
+                            
+                    # giving the hathitrust servers a chance to catch their breath
                     time.sleep(1)      
 
                 # if it doesn't work, wait a bit a try again    
