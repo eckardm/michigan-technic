@@ -28,7 +28,7 @@ def get_volume_ocr(collection_url):
     make directory for ocr'''
     
     # constructing the output path
-    os.mkdir('ocr-bread')
+    os.mkdir('ocr')
 
 
     '''
@@ -101,7 +101,7 @@ def get_volume_ocr(collection_url):
                         # printing it to the terminal(just for fun)
                         print page_item_page_text
                         # and file unique to each volume
-                        output_text = os.path.join('ocr-bread', "{0}.txt".format(item_id_string))
+                        output_text = os.path.join('ocr', "{0}.txt".format(item_id_string))
                         # opening the file at that path so that we can append to it
                         with open(output_text, 'a') as text_file:
                             # and writing the ocr!
