@@ -57,17 +57,17 @@ def make_dictionaries(collection_url):
             id = row_result.find('input', {'class': 'id'})['value']
            
             
-            '''
-            tokenize the ocr for row results'''
+            # '''
+            # tokenize the ocr for row results'''
             
-            # open ocr
-            ocr = open('ocr/' + id + '.txt', 'r')
-            # read and decode data
-            ocr_data = ocr.read().decode('utf-8')
-            # tokenize
-            ocr_tokens = nltk.word_tokenize(ocr_data)
-            # close the ocr
-            ocr.close()
+            # # open ocr
+            # ocr = open('ocr/' + id + '.txt', 'r')
+            # # read and decode data
+            # ocr_data = ocr.read().decode('utf-8')
+            # # tokenize
+            # ocr_tokens = nltk.word_tokenize(ocr_data)
+            # # close the ocr
+            # ocr.close()
             
             
             '''
@@ -83,8 +83,8 @@ def make_dictionaries(collection_url):
             id['date'] = date
             # add the id
             id['id'] = row_result.find('input', {'class': 'id'})['value']
-            # add the tokens
-            id['ocr'] = ocr_tokens
+            # # add the tokens
+            # id['ocr'] = ocr_tokens
                         
             # append the dictionary to our list
             dictionaries.append(id)
