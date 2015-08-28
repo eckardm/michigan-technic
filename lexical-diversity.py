@@ -116,4 +116,8 @@ plt.ylabel('Lexical Diversity')
 
 # show it
 plt.show()
+
+
+''''
+Other ideas: add annotations with title for highest and lowest diversities.'''
         
