@@ -90,17 +90,17 @@ def make_dictionaries(collection_url):
             dictionaries.append(id)
             
             
-            '''
-            write dictionaries to file for reference later'''
-            
-            # go through each dictionary in the list
-            for dictionary in dictionaries:
-                # opening file so that we can append to it
-                with open('dictionaries.py', 'a') as dictionaries_file:
-                    # writing the dictionaries
-                    dictionaries_file.write(dictionary_name + ' = ' + str(id))
-                    # and skipping a space
-                    dictionaries_file.write('\n')
+        '''
+        write dictionaries to file for reference later'''
+        
+        # go through each dictionary in the list
+        for dictionary in dictionaries:
+            # opening file so that we can append to it
+            with open('dictionaries.py', 'a') as dictionaries_file:
+                # writing the dictionaries
+                dictionaries_file.write(dictionary_name + ' = ' + str(id))
+                # and skipping a space
+                dictionaries_file.write('\n')
         
         
     '''
