@@ -5,17 +5,11 @@ import what we need'''
 import os
 from os.path import join
 
-# import the dictionaries we created earlier
-# go through the ocr directory and get the filename
-for filename in os.listdir('ocr'):
-    # create the dictionary name
-    dictionary = filename.replace('.', '_')
-    # and import the dictionary
-    from dictionaries import dictionary
-    
 
 '''
 get total words'''
+
+
 
 
 '''
