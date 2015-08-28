@@ -8,6 +8,8 @@ from os.path import join
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
 
+# matplotlib is a python 2d plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms, you'll need to install it
+import matplotlib.pyplot as plt
 
 '''
 what are we doing?'''
