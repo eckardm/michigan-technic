@@ -12,12 +12,15 @@ import nltk
 import matplotlib.pyplot as plt
 
 '''
-what are we doing?'''
+preliminaries'''
 
 # print what we're doing
 print 'LEXICAL DIVERSITY'
 print '================='
 print '\n'
+
+# empty list
+lexical_diversity_list = []
 
 
 '''
@@ -39,6 +42,7 @@ for filename in os.listdir('ocr'):
         text = nltk.word_tokenize(raw)
         # print the filename and total words
         print 'Total words: ' + str(len(text))
+        
 
 
         '''
@@ -52,13 +56,34 @@ for filename in os.listdir('ocr'):
         
         '''
         get lexical diversity'''
+        
+        lexical_diversity = len(text) / len(set(text))
 
         # print lexical diversity
-        print 'LEXICAL DIVERSITY: ' + str(len(text) / len(set(text)))
+        print 'LEXICAL DIVERSITY: ' + str(lexical_diversity)
+        
+        # append it to list
+        lexical_diversity_list.append(lexical_diversity)
         
         # skip a space
         print '\n'
-
-
+        
+        
         '''
-        graph it'''
+        get the metadata'''
+        
+        
+
+
+'''
+graph it'''
+
+# set up the plot
+plt.plot(lexical_diversity_list)
+# set up a label for the y axis
+plt.ylabel('Lexical Diversity')
+
+
+# show it
+plt.show()
+        
