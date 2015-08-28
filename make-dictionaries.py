@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 # re provides regular expression matching operations
 import re
 
-# nltk is a leading platform for building python programs to work with human language data, you'll need to install it
-import nltk
+# # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
+# import nltk
 
 
 '''
