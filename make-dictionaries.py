@@ -10,9 +10,6 @@ from bs4 import BeautifulSoup
 # re provides regular expression matching operations
 import re
 
-# # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
-# import nltk
-
 
 '''
 go through each of the volumes in a collection, make dictionary entries for title, date, id'''
@@ -20,6 +17,8 @@ go through each of the volumes in a collection, make dictionary entries for titl
 # defines a function to make the dictionaries based on one argument, a collection url
 def make_dictionaries(collection_url):
 
+    with open('dictionaries.py', 'wb') as dictionaries_file:
+        dictionaries_file.write('dictionary_sho = {\n')
 
     '''
     find the volumes'''
@@ -44,10 +43,7 @@ def make_dictionaries(collection_url):
         # finding all of the results
         row_results = collection_soup.find_all('div', {'class': div_class_attribute_value})
         
-        # make an emply list we'll use later
-        dictionaries = []
-        
-        # go through row results
+       # go through row results
         for row_result in row_results:
             # find the title, remove articles from beginning
             title = re.sub('Item\s\d+\:\s', '', row_result.find('h4', {'class': 'Title'}).text).lstrip('The ').lstrip('An ').lstrip('A ')
@@ -55,52 +51,41 @@ def make_dictionaries(collection_url):
             date = int(row_result.find('span', {'class': 'Date'}).text.replace('Published ', ''))
             # find the id, replaces the period because python doesn't like periods in variable names
             id = row_result.find('input', {'class': 'id'})['value']
-           
             
-            # '''
-            # tokenize the ocr for row results'''
-            
-            # # open ocr
-            # ocr = open('ocr/' + id + '.txt', 'r')
-            # # read and decode data
-            # ocr_data = ocr.read().decode('utf-8')
-            # # tokenize
-            # ocr_tokens = nltk.word_tokenize(ocr_data)
-            # # close the ocr
-            # ocr.close()
-            
-            
+
             '''
             make dictionary for row result'''
             
-            # replaces the period in the id because python doesn't like periods in variable names
-            dictionary_name = id.replace('.', '_')
-            # initialize dictionary
-            id = {}
+            dictionary_dai = {}
+            
             # add the title
-            id['title'] = title
+            dictionary_dai['title'] = title
             # add the date
-            id['date'] = date
-            # add the id
-            id['id'] = row_result.find('input', {'class': 'id'})['value']
-            # # add the tokens
-            # id['ocr'] = ocr_tokens
+            dictionary_dai['date'] = date
+            
+            with open('dictionaries.py', 'ab') as dictionaries_file:
+                dictionaries_file.write('\t' + "'" + id.replace('.', '_') + "'" + ': ' + str(dictionary_dai) + ',' + '\n')
+                
+
+            
+            # # add the id
+            # id['id'] = row_result.find('input', {'class': 'id'})['value']
+            # # # add the tokens
+            # # id['ocr'] = ocr_tokens
                         
-            # append the dictionary to our list
-            dictionaries.append(id)
+            # # append the dictionary to our list
+            # dictionaries.append(id)
             
             
-        '''
-        write dictionaries to file for reference later'''
+        # '''
+        # write dictionaries to file for reference later'''
         
-        # go through each dictionary in the list
-        for dictionary in dictionaries:
-            # opening file so that we can append to it
-            with open('dictionaries.py', 'a') as dictionaries_file:
-                # writing the dictionaries
-                dictionaries_file.write(dictionary_name + ' = ' + str(id))
-                # and skipping a space
-                dictionaries_file.write('\n')
+        # print dictionaries
+        
+        # # opening file so that we can append to it
+        # with open('dictionaries.py', 'a') as dictionaries_file:
+            # # writing the dictionaries
+            # dictionaries_file.write(dictionaries)
         
         
     '''
@@ -110,6 +95,9 @@ def make_dictionaries(collection_url):
     get_row_results('row result')
     # row result alt
     get_row_results('row result alt')
+    
+    with open('dictionaries.py', 'ab') as dictionaries_file:
+        dictionaries_file.write('}')
 
 
 '''
