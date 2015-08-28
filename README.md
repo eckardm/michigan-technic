@@ -2,8 +2,8 @@
 HathiTrust text mining is easy! All you need is a collection! 
 
   1. Create or get a link to a public collection in HathiTrust.
-  2. Run get-ocr.py to scrape HathiTrust and get the OCR on your local machine. This will take a while.
-  3. Run make-dictionaries.py. This will get basic metadata for each volume in that collection.
+  2. Run **get-ocr.py** to scrape HathiTrust and get the OCR on your local machine. This will take a while.
+  3. Run **make-dictionaries.py**. This will get basic metadata for each volume in that collection.
 
 From there, you can do some basic text analysis:
 
