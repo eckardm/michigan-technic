@@ -10,27 +10,53 @@ import nltk
 
 
 '''
+what are we doing?'''
+
+# print what we're doing
+print 'LEXICAL DIVERSITY'
+print '================='
+print '\n'
+
+
+'''
 get total words'''
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
     # open it in super read mode
     with open(join('ocr', filename), 'rb') as ocr:
+    
+        # print filename
+        print filename
+        print '----------------------'
+        print '\n'
+    
         # read it
         raw = ocr.read().decode('utf-8')
         # tokenize it
         text = nltk.word_tokenize(raw)
+        # print the filename and total words
+        print 'Total words: ' + str(len(text))
+
+
+        '''
+        get unique words'''
+        
+        # make sure uppercase and lowercase don't count as separate words
+        text = [word.lower() for word in text]
         # print the filename and unique words
-        print filename + ': ' + str(len(text))
+        print 'Unique words: ' + str(len(set(text)))
+
+        
+        '''
+        get lexical diversity'''
+
+        # print lexical diversity
+        print 'LEXICAL DIVERSITY: ' + str(len(text) / len(set(text)))
+        
+        # skip a space
+        print '\n'
 
 
-'''
-get unique words'''
-
-
-'''
-get lexical diversity'''
-
-
-'''
-graph it'''
+        '''
+        graph it'''
