@@ -19,9 +19,10 @@ preliminaries'''
 # print what we're doing
 print 'FREQUENT WORD COMBINATIONS'
 print '=========================='
-print '\n' '', '']
+print '\n'
 
-words_nancy_mentioned = ['',]
+# words to look for
+words_to_look_for = ['words', 'to', 'look', 'for']
 
 
 '''
@@ -47,10 +48,12 @@ for filename in os.listdir('ocr'):
         
         # prepare text for nltk processing
         ntext = nltk.Text(text)
-        # return concordances for words nancy mentioned
-        ntext.concordance('')
-        ntext.concordance('')
-        ntext.concordance('')
-        # skip a space
-        print '\n'
+        # return concordances for words you want to look for, or try to
+        for word in words_to_look_for:
+            try:
+                ntext.concordance(word)
+            except:
+                print '**Encoding error**'
+            # skip a space
+            print '\n'
         
