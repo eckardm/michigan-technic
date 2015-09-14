@@ -48,7 +48,7 @@ for filename in os.listdir('ocr'):
             total_tokens.append(token)
         
         # prepare text for nltk processing
-        ntext = ntlk.Text(text)
+        ntext = nltk.Text(text)
         # return frequent word combinations
         frequent_word_combinations = ntext.collocations()
         
