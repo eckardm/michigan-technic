@@ -21,8 +21,6 @@ print 'FREQUENT WORD COMBINATIONS'
 print '=========================='
 print '\n'
 
-# empty list for all tokens
-total_tokens = []
 
 '''
 get total words'''
@@ -42,15 +40,17 @@ for filename in os.listdir('ocr'):
         # tokenize it
         text = nltk.word_tokenize(raw)
         
-        # go through tokens
-        for token in text:
-            # add them to list of total text
-            total_tokens.append(token)
+        # make sure uppercase and lowercase don't count as separate words
+        text = [word.lower() for word in text]
         
         # prepare text for nltk processing
         ntext = nltk.Text(text)
-        # return frequent word combinations
-        frequent_word_combinations = ntext.collocations()
-        
-        print type(frequent_word_combinations)
+        # return frequent word combinations, or rather try to
+        try:
+            ntext.collocations()
+        # if not, just make note of it for now
+        except:
+            print '**Encoding error**'
+        # skip a space
+        print '\n'
         
