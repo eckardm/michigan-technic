@@ -7,7 +7,6 @@ from os.path import join
 
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
-from nltk.corpus import stopwords
 
 # matplotlib is a python 2d plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms, you'll need to install it
 import matplotlib.pyplot as plt
@@ -18,16 +17,16 @@ from dictionaries import dictionary_sho
 preliminaries'''
 
 # print what we're doing
-print 'FREQUENCY DISTRIBUTION'
+print 'FREQUENT WORD COMBINATIONS'
 print '=========================='
 print '\n'
+
+# words to look for
+list_of_words = ['Albert Kahn', 'concrete']
 
 
 '''
 get total words'''
-
-# not total with stopwords
-stopwords = stopwords.words('english')
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
@@ -44,25 +43,8 @@ for filename in os.listdir('ocr'):
         # tokenize it
         text = nltk.word_tokenize(raw)
         
-        # make sure uppercase and lowercase don't count as separate words
-        text = [word.lower() for word in text]
+        # prepare text for nltk processing
+        ntext = nltk.Text(text)
+        # display a graphical view of where a given list of words appears
+        ntext.dispersion_plot(list_of_words)
         
-        # remove very common words from text
-        clean_text = [w for w in text if w not in stopwords]
-        
-        # make sure it is just words
-        just_words = [w for w in clean_text if w.isalpha()]
-        
-        # calculate a frequency distribution for words in the text
-        fdist = nltk.FreqDist(just_words)
-        
-        # view the top most 50 words
-        print fdist.items()[:50]
-        print '\n'
-        
-        # plot the top most 50 words
-        fdist.plot(50, cumulative=True)
-        
-        # view the words in a text that only occur once
-        print fdist.hapaxes()
-        print '\n'
