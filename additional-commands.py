@@ -53,4 +53,9 @@ for filename in os.listdir('ocr'):
         
         # find the contexts that given words share
         ntext.common_contexts(list_of_words)
+        print '\n'
+                
+        # number of appearances of a word
+        for word in list_of_words:
+            ntext.count(word)
         
