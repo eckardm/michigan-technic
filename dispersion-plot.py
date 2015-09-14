@@ -17,7 +17,7 @@ from dictionaries import dictionary_sho
 preliminaries'''
 
 # print what we're doing
-print 'FREQUENT WORD COMBINATIONS'
+print 'DISPERSION PLOT'
 print '=========================='
 print '\n'
 
