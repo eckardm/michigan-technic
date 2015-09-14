@@ -18,16 +18,16 @@ from dictionaries import dictionary_sho
 preliminaries'''
 
 # print what we're doing
-print 'FREQUENT WORD COMBINATIONS'
+print 'FREQUENCY DISTRIBUTION'
 print '=========================='
 print '\n'
-
-# words to look for
-words_to_look_for = ['words', 'to', 'look', 'for']
 
 
 '''
 get total words'''
+
+# not total with stopwords
+stopwords = stopwords.words('english')
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
@@ -48,7 +48,6 @@ for filename in os.listdir('ocr'):
         text = [word.lower() for word in text]
         
         # remove very common words from text
-        stopwords = stopwords.words('english')
         clean_text = [w for w in text if w not in stopwords]
         
         # calculate a frequency distribution for words in the text
@@ -60,3 +59,7 @@ for filename in os.listdir('ocr'):
         
         # plot the top most 50 words
         fdist.plot(50, cumulative=True)
+        
+        # view the words in a text that only occur once
+        print fdist.hapaxes()
+        print '\n'
