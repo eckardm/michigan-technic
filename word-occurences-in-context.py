@@ -22,7 +22,7 @@ print '=========================='
 print '\n'
 
 # words to look for
-words_to_look_for = ['words', 'to', 'look', 'for']
+words_to_look_for = ['Albert Kahn', 'concrete']
 
 
 '''
@@ -42,9 +42,6 @@ for filename in os.listdir('ocr'):
         raw = ocr.read().decode('utf-8')
         # tokenize it
         text = nltk.word_tokenize(raw)
-        
-        # make sure uppercase and lowercase don't count as separate words
-        text = [word.lower() for word in text]
         
         # prepare text for nltk processing
         ntext = nltk.Text(text)
