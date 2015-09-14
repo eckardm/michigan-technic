@@ -48,7 +48,7 @@ for filename in os.listdir('ocr'):
         
         # find words that occupy similar spaces to a given word
         for word in list_of_words:
-            ntext.similar(word)
+            word, ntext.similar(word)
         print '\n'
         
         # find the contexts that given words share
@@ -57,5 +57,6 @@ for filename in os.listdir('ocr'):
                 
         # number of appearances of a word
         for word in list_of_words:
-            ntext.count(word)
+            print word, ntext.count(word)
+        print '\n'
         
