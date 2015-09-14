@@ -85,8 +85,6 @@ for filename in os.listdir('ocr'):
 '''
 graph it'''
 
-print counts_dictionary_sho
-
 # give it a big, bold title
 plt.suptitle('Counts', fontsize = 14, fontweight = 'bold')
 
@@ -110,8 +108,6 @@ for value in x_values:
 concrete_y_values = []
 for value in x_values:
     concrete_y_values.append(counts_dictionary_sho[value]['concrete'])
-
-
 
 # set up the plot
 plt.plot(x_values, albert_y_values, label='albert') 
