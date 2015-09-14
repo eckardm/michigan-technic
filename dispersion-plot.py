@@ -22,7 +22,7 @@ print '=========================='
 print '\n'
 
 # words to look for
-list_of_words = ['Albert Kahn', 'concrete']
+list_of_words = ['Albert', 'Kahn', 'concrete']
 
 
 '''

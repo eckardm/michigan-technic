@@ -22,7 +22,7 @@ print '=========================='
 print '\n'
 
 # words to look for
-list_of_words = ['Albert Kahn', 'concrete']
+list_of_words = ['Albert', 'Kahn', 'concrete']
 
 
 '''
@@ -50,4 +50,7 @@ for filename in os.listdir('ocr'):
         for word in list_of_words:
             ntext.similar(word)
         print '\n'
+        
+        # find the contexts that given words share
+        ntext.common_contexts(list_of_words)
         
