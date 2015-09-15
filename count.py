@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 
 from dictionaries import dictionary_sho
 
+
 '''
 preliminaries'''
 
@@ -24,6 +25,7 @@ print '\n'
 # set up some empty lists to make the graph later
 counts_list = []
 
+# empty dictionary for the graph
 counts_dictionary_sho = {}
 
 
@@ -89,23 +91,27 @@ graph it'''
 # give it a big, bold title
 plt.suptitle('Counts', fontsize = 14, fontweight = 'bold')
 
+# empty list for x values for every word
 x_values = []
 
+# go through and get the years
 for key in counts_dictionary_sho:
     x_values.append(key)
-    
+
+# sort them    
 x_values.sort()
 
+# get the y values for albert
 albert_y_values = []
 for value in x_values:
     albert_y_values.append(counts_dictionary_sho[value]['albert'])
 
-
+# get the y values for kahn
 kahn_y_values = []
 for value in x_values:
     kahn_y_values.append(counts_dictionary_sho[value]['kahn'])
 
-
+# get the y values for concrete
 concrete_y_values = []
 for value in x_values:
     concrete_y_values.append(counts_dictionary_sho[value]['concrete'])
