@@ -9,6 +9,4 @@ From there, you can do some basic text analysis:
 
   * Run **lexical-diversity.py** to get an idea of the lexical diversity over time.
   * Run **frequent-word-combinations.py** to see freqent word combinations in each issue.
-  * Run **word-occurences-in-context.py** to see a concordance for words in a list. 
-  
-*Note, you'll need to edit [this line](https://github.com/eckardm/michigan-technic/blob/master/word-occurences-in-context.py#L22) with the words you'd like to look for.
+  * Run **word-occurences-in-context.py** to see a concordance for words in a list. *Note, you'll need to edit [this line](https://github.com/eckardm/michigan-technic/blob/master/word-occurences-in-context.py#L22) with the words you'd like to look for.*
