@@ -7,6 +7,7 @@ from os.path import join
 
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
+from nltk.corpus import stopwords
 
 from dictionaries import dictionary_sho
 
