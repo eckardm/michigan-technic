@@ -61,18 +61,24 @@ for filename in os.listdir('ocr'):
         fdist = nltk.FreqDist(just_words)
         
         # view the top most 50 words
+        print '### Top most 50 words'
         print fdist.items()[:50]
         print '\n'
         
         # plot the top most 50 words
+        print '### Top most 50 words plotted'
         fdist.plot(50, cumulative=True)
+        print '\n'
         
         # generate a word cloud image
+        print '### Word cloud'
         wordcloud = WordCloud().generate(raw)
         plt.imshow(wordcloud)
         plt.axis('off')
         plt.show()
+        print '\n'
         
         # view the words in a text that only occur once
+        print '### Words that occur only once'
         print fdist.hapaxes()
         print '\n'
