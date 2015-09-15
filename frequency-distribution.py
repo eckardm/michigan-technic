@@ -12,6 +12,9 @@ from nltk.corpus import stopwords
 # matplotlib is a python 2d plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms, you'll need to install it
 import matplotlib.pyplot as plt
 
+# a little word cloud generator, you'll need to install it, as well as
+from wordcloud import WordCloud
+
 from dictionaries import dictionary_sho
 
 '''
@@ -62,6 +65,12 @@ for filename in os.listdir('ocr'):
         
         # plot the top most 50 words
         fdist.plot(50, cumulative=True)
+        
+        # generate a word cloud image
+        wordcloud = WordCloud().generate(raw)
+        plt.imshow(wordcloud)
+        plt.axis('off')
+        plt.show()
         
         # view the words in a text that only occur once
         print fdist.hapaxes()
