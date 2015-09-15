@@ -30,7 +30,7 @@ counts_dictionary_sho = {}
 
 
 '''
-get total words'''
+get counts'''
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
