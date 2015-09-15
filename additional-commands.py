@@ -8,9 +8,6 @@ from os.path import join
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
 
-# matplotlib is a python 2d plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms, you'll need to install it
-import matplotlib.pyplot as plt
-
 from dictionaries import dictionary_sho
 
 
@@ -19,7 +16,7 @@ preliminaries'''
 
 # print what we're doing
 print 'ADDITIONAL COMMANDS'
-print '=========================='
+print '==================='
 print '\n'
 
 # words to look for
@@ -27,7 +24,7 @@ list_of_words = ['Albert', 'Kahn', 'concrete']
 
 
 '''
-get total words'''
+do the additional commands from devon's guide'''
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
@@ -48,15 +45,20 @@ for filename in os.listdir('ocr'):
         ntext = nltk.Text(text)
         
         # find words that occupy similar spaces to a given word
+        print '### Words that occupy similar spaces to a given word'
         for word in list_of_words:
             word, ntext.similar(word)
         print '\n'
         
         # find the contexts that given words share
+        print '### Contexts that given words share'
+        print '\n'
         ntext.common_contexts(list_of_words)
         print '\n'
                 
         # number of appearances of a word
+        print '### Number of appearances of a given word'
+        print '\n'
         for word in list_of_words:
             print word, ntext.count(word)
         print '\n'
