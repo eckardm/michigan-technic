@@ -26,6 +26,7 @@ counts_list = []
 
 counts_dictionary_sho = {}
 
+
 '''
 get total words'''
 

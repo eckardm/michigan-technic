@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 
 from dictionaries import dictionary_sho
 
+
 '''
 preliminaries'''
 
