@@ -8,9 +8,6 @@ from os.path import join
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
 
-# matplotlib is a python 2d plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms, you'll need to install it
-import matplotlib.pyplot as plt
-
 from dictionaries import dictionary_sho
 
 '''
@@ -23,7 +20,7 @@ print '\n'
 
 
 '''
-get total words'''
+get frequent word combinations'''
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
