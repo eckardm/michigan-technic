@@ -22,7 +22,7 @@ preliminaries'''
 
 # print what we're doing
 print 'FREQUENCY DISTRIBUTION'
-print '=========================='
+print '======================'
 print '\n'
 
 
