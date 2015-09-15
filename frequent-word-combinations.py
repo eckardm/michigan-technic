@@ -41,7 +41,7 @@ for filename in os.listdir('ocr'):
         text = [word.lower() for word in text]
         
         # prepare text for nltk processing
-        ntext = nltk.Text(just_words)
+        ntext = nltk.Text(text)
         # return frequent word combinations, or rather try to
         try:
             ntext.collocations()
