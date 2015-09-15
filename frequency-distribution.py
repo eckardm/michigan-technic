@@ -28,7 +28,7 @@ print '\n'
 
 
 '''
-get total words'''
+get frequency distribution and related'''
 
 # not total with stopwords
 stopwords = stopwords.words('english')
