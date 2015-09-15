@@ -7,7 +7,6 @@ from os.path import join
 
 # nltk is a leading platform for building python programs to work with human language data, you'll need to install it
 import nltk
-from nltk.corpus import stopwords
 
 from dictionaries import dictionary_sho
 
@@ -40,12 +39,6 @@ for filename in os.listdir('ocr'):
         
         # make sure uppercase and lowercase don't count as separate words
         text = [word.lower() for word in text]
-        
-        # remove very common words from text
-        clean_text = [w for w in text if w not in stopwords]
-        
-        # make sure it is just words
-        just_words = [w for w in clean_text if w.isalpha()]
         
         # prepare text for nltk processing
         ntext = nltk.Text(just_words)
