@@ -10,6 +10,7 @@ import nltk
 
 from dictionaries import dictionary_sho
 
+
 '''
 preliminaries'''
 

@@ -17,6 +17,7 @@ from wordcloud import WordCloud
 
 from dictionaries import dictionary_sho
 
+
 '''
 preliminaries'''
 
