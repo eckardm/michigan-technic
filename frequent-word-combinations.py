@@ -40,8 +40,14 @@ for filename in os.listdir('ocr'):
         # make sure uppercase and lowercase don't count as separate words
         text = [word.lower() for word in text]
         
+        # remove very common words from text
+        clean_text = [w for w in text if w not in stopwords]
+        
+        # make sure it is just words
+        just_words = [w for w in clean_text if w.isalpha()]
+        
         # prepare text for nltk processing
-        ntext = nltk.Text(text)
+        ntext = nltk.Text(just_words)
         # return frequent word combinations, or rather try to
         try:
             ntext.collocations()
