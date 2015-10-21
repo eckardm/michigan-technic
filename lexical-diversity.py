@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 
 from dictionaries import dictionary_sho
 
+# seaborn is a python visualization library based on matplotlib
+import seaborn as sns
+
 '''
 preliminaries'''
 

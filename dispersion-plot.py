@@ -20,11 +20,21 @@ print '==============='
 print '\n'
 
 # words to look for
-list_of_words = ['Albert', 'Kahn', 'concrete']
+list_of_words = ['Kahn', ['reinforced', 'concrete'], 'spacecraft', 'chemical engineering', 'weapons', 'steel', ['steel', 'beem']]
 
 
 '''
 get dispersion plot'''
+
+# for everything
+with open('ocr-total.txt', 'rb') as ocr:
+    print 'TOTAL'
+    print '-----'
+    
+    raw = ocr.read().decode('utf-8')
+    text = nltk.word_tokenize(raw)
+    ntext = nltk.Text(text)
+    ntext.dispersion_plot(list_of_words)
 
 # go through each ocr file
 for filename in os.listdir('ocr'):
